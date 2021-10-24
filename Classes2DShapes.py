@@ -1,6 +1,14 @@
 from math import sqrt, pi
 
 
+def check_value(values: list) -> None:
+    for value in values:
+        if type(value) not in [int, float]:
+            raise TypeError('Должно быть число!')
+        if value < 0:
+            raise ValueError('Число должно быть больше нуля!')
+
+
 class Shape:
     """ Класс фигура """
     title = 'Фигура'
@@ -25,6 +33,7 @@ class Square(Shape):
     title = 'Квадрат'
 
     def __init__(self, length: float):
+        check_value([length])
         super().__init__()
         self.length = length
 
@@ -47,6 +56,7 @@ class Rectangle(Shape):
     title = 'Прямоугольник'
 
     def __init__(self, width: float, length: float):
+        check_value([length, width])
         super().__init__()
         self.width = width
         self.length = length
@@ -72,6 +82,7 @@ class Circle(Shape):
     def __init__(self, radius: float):
         """ Инициальзация значений.
             radius - радиус круга"""
+        check_value([radius])
         super().__init__()
         self.radius = radius
 
@@ -98,6 +109,7 @@ class Triangle(Shape):
 
     def __init__(self, side1: float, side2: float, side3: float):
         """ Инициальизация строно треугольника """
+        check_value([side1, side2, side3])
         super().__init__()
         self.side1 = side1
         self.side2 = side2
@@ -132,6 +144,11 @@ class Trapezoid(Shape):
     title = 'Трапеция'
 
     def __init__(self, big_foot: float, small_foot: float, side1: float, side2: float):
+        """ Инициальзация значений трапции. big_foot - большое основание
+            small_foot - маленькое основание
+            side1 - первая боковая сторона
+            side2 - сторая боковая сторона"""
+        check_value([big_foot, small_foot, side1, side2])
         super().__init__()
         self.big_foot = big_foot
         self.small_foot = small_foot
@@ -142,6 +159,8 @@ class Trapezoid(Shape):
         """ Расчет площади трапеции по формуле Герона.
             p - полумпериметр
             div_foot = частное от суммы оснований на разность оснований"""
+        if self.big_foot == 0 or self.small_foot == 0:
+            raise ZeroDivisionError('Основания равный нулю')
         p = (self.side1 + self.side2 + self.big_foot + self.small_foot) / 2
         div_foot = (self.big_foot + self.small_foot) / (self.big_foot - self.small_foot)
         return div_foot * sqrt((p - self.big_foot) *\
@@ -150,7 +169,7 @@ class Trapezoid(Shape):
                                (p - self.big_foot - self.side2))
 
     def perimeter(self) -> float:
-        return self.side1 + self.side1 + self.small_foot + self.big_foot
+        return self.side1 + self.side2 + self.small_foot + self.big_foot
 
     def show_info(self):
         print(f'Площадь трапеции = {self.area()}\n'
@@ -165,13 +184,14 @@ class Rhomb(Shape):
             diagonal1 и diagonal2 - диагонали ромба
             side - сторона ромба (Находятся по свойству: Сумма квадратов
             диагоналей равна квадрату стороны, умноженному на 4.)"""
+        check_value([diagonal1, diagonal2])
         super().__init__()
         self.diagonal1 = diagonal1
         self.diagonal2 = diagonal2
         self.side = sqrt((self.diagonal1**2 + self.diagonal2**2) / 4)
 
     def area(self) -> float:
-        return self.side ** 2
+        return 1/2 * self.diagonal1 * self.diagonal2
 
     def perimeter(self) -> float:
         return self.side * 4

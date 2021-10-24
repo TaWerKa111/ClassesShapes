@@ -17,16 +17,6 @@ def next_menu(shapes: list) -> None:
         print(i)
 
 
-def check_value(values: list) -> bool:
-    """ Проверка введеный пользователем значений. Вернет:
-        True - если значений больше нуля
-        False - если есть значения меньше нуля или равны ему"""
-    for value in values:
-        if value <= 0:
-            return False
-    return True
-
-
 def print_info(shape: Shape) -> None:
     shape.show_info()
 
@@ -36,61 +26,73 @@ def create_2d_shape(index: str) -> None:
     if index == '1':
         """Circle"""
         while True:
-            radius = float(input('Введите значение радиуса окружности: '))
-            if not check_value([radius]):
-                continue
-            print_info(Circle(radius))
-            break
+            try:
+                radius = float(input('Введите значение радиуса окружности: '))
+                print_info(Circle(radius))
+                break
+            except ValueError or TypeError as er:
+                print(er)
+
     elif index == '2':
         """Rectangle"""
         while True:
-            length = float(input('Введите значение длины прямоугльника: '))
-            width = float(input('Введите значение ширины прямоугльника: '))
-            if not check_value([width, length]):
-                continue
-            print_info(Rectangle(width, length))
-            break
+            try:
+                length = float(input('Введите значение длины прямоугльника: '))
+                width = float(input('Введите значение ширины прямоугльника: '))
+                print_info(Rectangle(width, length))
+                break
+            except ValueError or TypeError as er:
+                print(er)
     elif index == '3':
         """Triangle"""
         while True:
-            side1 = float(input('Введите значение первой стороны треугольника: '))
-            side2 = float(input('Введите значение второй стороны треугольника: '))
-            side3 = float(input('Введите значение трертьей стороны треугольника: '))
-            if not check_value([side1, side2, side3]):
-                continue
-            if (side1 + side2 > side3) or (side1 + side3 > side2) or (side2 + side3 > side1):
-                print("Неверный значения сторон треугольника!")
-                continue
-            print_info(Triangle(side1, side2, side3))
-            break
+
+            try:
+                side1 = float(input('Введите значение первой стороны треугольника: '))
+                side2 = float(input('Введите значение второй стороны треугольника: '))
+                side3 = float(input('Введите значение трертьей стороны треугольника: '))
+
+                if (side1 + side2 > side3) or (side1 + side3 > side2) or (side2 + side3 > side1):
+                    print("Неверный значения сторон треугольника!")
+                    continue
+
+                print_info(Triangle(side1, side2, side3))
+                break
+            except ValueError or TypeError as er:
+                print(er)
     elif index == '4':
         """Square"""
         while True:
-            side = float(input('Введите значение длины стороны квадрата: '))
-            if not check_value([side]):
-                continue
-            print_info(Square(side))
-            break
+            try:
+                side = float(input('Введите значение длины стороны квадрата: '))
+                print_info(Square(side))
+                break
+            except ValueError or TypeError as er:
+                print(er)
     elif index == '5':
         """Trapezoid"""
         while True:
-            big_foot = float(input('Введите значение большогое основания трапеции: '))
-            small_foot = float(input('Введите значение маленького основания трапеции: '))
-            side1 = float(input('Введите значение левой сторонй трапеции: '))
-            side2 = float(input('Введите значение правой стороны трапеции: '))
-            if not check_value([big_foot, small_foot, side2, side1]):
-                continue
-            print_info(Trapezoid(big_foot, small_foot, side1, side2))
-            break
+            try:
+                big_foot = float(input('Введите значение большогое основания трапеции: '))
+                small_foot = float(input('Введите значение маленького основания трапеции: '))
+                side1 = float(input('Введите значение левой сторонй трапеции: '))
+                side2 = float(input('Введите значение правой стороны трапеции: '))
+
+                print_info(Trapezoid(big_foot, small_foot, side1, side2))
+                break
+            except ValueError or TypeError as er:
+                print(er)
     elif index == '6':
         """Rhomb"""
         while True:
-            diagonal1 = float(input('Введите значение первой диагонали ромба: '))
-            diagonal2 = float(input('Введите значение второй диагонали ромба: '))
-            if not check_value([diagonal1, diagonal2]):
-                continue
-            print_info(Rhomb(diagonal1, diagonal2))
-            break
+            try:
+                diagonal1 = float(input('Введите значение первой диагонали ромба: '))
+                diagonal2 = float(input('Введите значение второй диагонали ромба: '))
+
+                print_info(Rhomb(diagonal1, diagonal2))
+                break
+            except ValueError or TypeError as er:
+                print(er)
     else:
         print('Такой фигуры нет')
 
@@ -100,56 +102,66 @@ def create_3d_shape(index: str) -> None:
     if index == '1':
         """Sphere"""
         while True:
-            radius = float(input('Введите значение радиуса сферы: '))
-            if not check_value([radius]):
-                continue
-            print_info(Sphere(radius))
-            break
+            try:
+                radius = float(input('Введите значение радиуса сферы: '))
+                print_info(Sphere(radius))
+                break
+            except ValueError or TypeError as er:
+                print(er)
     elif index == '2':
         """Parallelepiped"""
         while True:
-            length = float(input('Введите значение длины параллелепипеда: '))
-            width = float(input('Введите значение ширины параллелепипеда: '))
-            height = float(input('Введите значение высоты параллелепипеда: '))
-            if not check_value([width, length, height]):
-                continue
-            print_info(Parallelepiped(height, length, width))
-            break
+            try:
+                length = float(input('Введите значение длины параллелепипеда: '))
+                width = float(input('Введите значение ширины параллелепипеда: '))
+                height = float(input('Введите значение высоты параллелепипеда: '))
+
+                print_info(Parallelepiped(height, length, width))
+                break
+            except ValueError or TypeError as er:
+                print(er)
     elif index == '3':
         """Tetrahedron"""
         while True:
-            side1 = float(input('Введите значение ребра тетраэдра: '))
-            if not check_value([side1]):
-                continue
-            print_info(Tetrahedron(side1))
-            break
+            try:
+                side1 = float(input('Введите значение ребра тетраэдра: '))
+
+                print_info(Tetrahedron(side1))
+                break
+            except ValueError or TypeError as er:
+                print(er)
     elif index == '4':
         """Cube"""
         while True:
-            side = float(input('Введите значение длины ребра куба: '))
-            if not check_value([side]):
-                continue
-            print_info(Cube(side))
-            break
+            try:
+                side = float(input('Введите значение длины ребра куба: '))
+
+                print_info(Cube(side))
+                break
+            except ValueError or TypeError as er:
+                print(er)
     elif index == '5':
         """Cylinder"""
         while True:
-            height = float(input('Введите значение высоты цилиндра: '))
-            radius = float(input('Введите значение радиуса цилиндра: '))
-            if not check_value([height, radius]):
-                continue
-            print_info(Cylinder(height, radius))
-            break
+            try:
+                height = float(input('Введите значение высоты цилиндра: '))
+                radius = float(input('Введите значение радиуса цилиндра: '))
+
+                print_info(Cylinder(height, radius))
+                break
+            except ValueError or TypeError as er:
+                print(er)
     elif index == '6':
         """Cone"""
         while True:
-            height = float(input('Введите значение высоты конуса: '))
-            radius = float(input('Введите значение радиуса основания: '))
-            forming = float(input('Введите значение образующей конуса: '))
-            if not check_value([forming, height, radius]):
-                continue
-            print_info(Cone(height, radius, forming))
-            break
+            try:
+                height = float(input('Введите значение высоты конуса: '))
+                radius = float(input('Введите значение радиуса основания: '))
+                forming = float(input('Введите значение образующей конуса: '))
+                print_info(Cone(height, radius, forming))
+                break
+            except ValueError or TypeError as er:
+                print(er)
     else:
         print('Такой фигуры нет')
 

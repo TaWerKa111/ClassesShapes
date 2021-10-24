@@ -1,11 +1,12 @@
 from math import pi, sqrt
-from Classes2DShapes import Shape, Square, Circle, Triangle, Rectangle
+from Classes2DShapes import Shape, Square, Circle, Triangle, Rectangle, check_value
 
 
 class Cube(Shape):
     title = 'Куб'
 
     def __init__(self, length: float):
+        check_value([length])
         self.length = length
         self.side = Square(self.length)
 
@@ -24,12 +25,13 @@ class Parallelepiped(Shape):
     title = 'Параллелепипед'
 
     def __init__(self, height: float, length: float, width: float):
+        check_value([height, length, width])
         self.height = height
         self.length = length
         self.width = width
 
     def area(self) -> float:
-        return 2 * (self.length * self.height + self.length * self.width + self.length * self.width)
+        return 2 * (self.length * self.height + self.length * self.width + self.height * self.width)
 
     def diagonal(self) -> float:
         return sqrt(self.length ** 2 + self.height ** 2 + self.width ** 2)
@@ -43,11 +45,12 @@ class Cylinder(Shape):
     title = 'Цилиндр'
 
     def __init__(self, height: float, radius: float):
+        check_value([height, radius])
         self.height = height
         self.circle = Circle(radius)
 
     def area(self) -> float:
-        return self.circle.perimeter() * self.height + self.circle.area() * 2
+        return self.circle.perimeter() * (self.height + self.circle.radius)
 
     def area_foot(self) -> float:
         return self.circle.area()
@@ -61,6 +64,7 @@ class Sphere(Shape):
     title = 'Сфера'
 
     def __init__(self, radius: float):
+        check_value([radius])
         self.radius = radius
 
     def area(self):
@@ -78,6 +82,7 @@ class Tetrahedron(Shape):
     title = 'Тетраэдр'
 
     def __init__(self, side1: float):
+        check_value([side1])
         self.side = Triangle(side1, side1, side1)
 
     def area(self) -> float:
@@ -100,6 +105,7 @@ class Cone(Shape):
             height - высота конуса
             radius - радиус основания конуса
             forming - образующая конуса"""
+        check_value([height, radius, forming])
         self.height = height
         self.radius = radius
         self.forming = forming
